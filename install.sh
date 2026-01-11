@@ -19,7 +19,7 @@ Name=Spotify (fix FFMPEG)
 GenericName=Music Player
 Comment=Spotify streaming music client fix FFMPEG
 Icon=spotify-client
-Exec=LD_LIBRARY_PATH="${HOME}/.local/share/spotifyffmpeg\${LD_PRELOAD:+:\$LD_PRELOAD}" spotify %U
+Exec=LD_LIBRARY_PATH="${HOME}/.local/share/spotifyffmpeg\${LD_LIBRARY_PATH:+:\$LD_LIBRARY_PATH}" spotify %U
 Terminal=false
 MimeType=x-scheme-handler/spotify;
 Categories=Audio;Music;Player;AudioVideo;
