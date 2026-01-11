@@ -8,7 +8,7 @@ mkdir -p ${HOME}/.local/share/spotifyffmpeg
 
 cd ${HOME}/.local/share/spotifyffmpeg
 curl -fSL "https://github.com/zicstardust/ffmpeg-spotify/releases/download/1.0/spotify_ffmpeg_libs_linux_x86_64.tar.gz" -o spotify_ffmpeg_libs_linux_x86_64.tar.gz &> /dev/null
-tar -xf spotify_ffmpeg_libs_linux_x86_64.tar.gz
+tar -xf spotify_ffmpeg_libs_linux_x86_64.tar.gz &> /dev/null
 rm -f spotify_ffmpeg_libs_linux_x86_64.tar.gz
 chmod -R +x *
 
@@ -27,3 +27,5 @@ StartupWMClass=spotify
 DESKTOP
 
 cd $current_dir
+
+echo "Spotify (fix FFMPEG) installed!"
