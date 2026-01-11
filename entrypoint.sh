@@ -13,8 +13,8 @@ if ! id -u ffmpeg >/dev/null 2>&1; then
     useradd -m -u "$PUID" -g "$PGID" -s /sbin/nologin ffmpeg
 fi
 
-mkdir -p /data /home/ffmpeg /app
+mkdir -p /data /home/ffmpeg /app /build
 
-chown -R ffmpeg:ffmpeg /app /data /home/ffmpeg
+chown -R ffmpeg:ffmpeg /app /data /build /home/ffmpeg
 
 exec gosu ffmpeg "$@"

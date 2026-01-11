@@ -1,7 +1,15 @@
 #!/usr/bin/env bash
 
 #https://ffmpeg.org/download.html#releases
-FFMPEG_VERSION="4.4.6" #libavcodec58, libavformat58
+#Versions compatible with Spotify:
+#4.4.6 - libavcodec58, libavformat58
+#3.4.14 - libavcodec57, libavformat57
+#2.8.22 - libavcodec56, libavformat56
+#1.2.12 - libavcodec54, libavformat54
+
+set -e
+: "${FFMPEG_VERSION:=4.4.6}"
+
 TAR_FORMAT="gz"
 #TAR_FORMAT="xz"
 #TAR_FORMAT="bz2"
@@ -15,7 +23,7 @@ tar -xf /app/ffmpeg-${FFMPEG_VERSION}.tar.${TAR_FORMAT}
 
 cd /app/ffmpeg-${FFMPEG_VERSION}
 
-./configure --prefix="/data" \
+./configure --prefix="/build" \
             --enable-shared \
             --disable-static \
             --enable-gnutls \
@@ -47,3 +55,5 @@ cd /app/ffmpeg-${FFMPEG_VERSION}
 make -j$(nproc)
 
 make install
+
+cp -R /build/lib/* /data/
