@@ -3,7 +3,7 @@ services:
     container_name: ffmpeg-spotify
     image: ffmpeg-spotify:latest
     build: .
-    #env_file: .env
+    env_file: .env
     volumes:
       - ./data:/data
     

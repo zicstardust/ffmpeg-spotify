@@ -1,19 +1,33 @@
-FROM debian:13-slim
+FROM debian:13.2-slim
+
+ENV DEBIAN_FRONTEND="noninteractive"
+
+WORKDIR /app
 
 COPY src/run.sh /usr/local/bin/
 
-
+COPY entrypoint.sh /entrypoint.sh
 
 RUN chmod -R +x /usr/local/bin/*; \
+    chmod +x /entrypoint.sh; \
     apt-get update; \
-    apt-get -y install curl \
+    apt-get -y install \
+                    gosu \
+                    curl \
                     gcc \
                     yasm \
                     gnutls-dev \
                     libunistring-dev \
                     pkg-config \
-                    make
+                    make; \
+    apt-get -y autoremove; \
+    apt-get -y autoclean; \
+    apt-get -y clean; \
+    rm -Rf /var/lib/apt/lists/*
 
 
+VOLUME [ "/data" ]
 
-RUN [run.sh]
+ENTRYPOINT ["/entrypoint.sh"]
+
+CMD ["run.sh"]
