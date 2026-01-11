@@ -24,6 +24,10 @@ Terminal=false
 MimeType=x-scheme-handler/spotify;
 Categories=Audio;Music;Player;AudioVideo;
 StartupWMClass=spotify
+Actions=Uninstall;
+[Desktop Action Uninstall]
+Name=Uninstall
+Exec=rm -Rf "${HOME}/.local/share/spotifyffmpeg" && rm -f "${HOME}/.local/share/applications/spotify-ffmpeg.desktop"
 DESKTOP
 
 cd $current_dir

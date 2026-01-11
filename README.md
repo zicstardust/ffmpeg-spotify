@@ -13,5 +13,8 @@ FFMPEG libraries for the native Linux Spotify client. To resolve the issue of pl
 curl https://raw.githubusercontent.com/zicstardust/ffmpeg-spotify/main/install.sh > /tmp/spotifyFFMPEG.sh; bash /tmp/spotifyFFMPEG.sh
 ```
 
-### Usage
+## Usage
 After installing, look for `Spotify (fix FFMPEG)` in your applications menu.
+
+### Uninstall
+Right click on application icon: "Uninstall"
