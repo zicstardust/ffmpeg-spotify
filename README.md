@@ -1,20 +1,31 @@
 # FFMPEG Libraries to Spotify Linux Client
 
-FFMPEG libraries for the native Linux Spotify client. To resolve the issue of playing local files on distributions (exemple: debian 13) that do not have the correct version of the FFMPEG libraries.
+FFMPEG libraries for the native Linux Spotify client. To resolve the issue of playing local files on distributions that do not have the correct version of the FFMPEG libraries.
+
+## Tested on:
+- Debian (official .deb package)
+- Ubuntu (official .deb package)
 
 ## Install
 
 ### Dependecies
 - curl
 - bash
+- tar
 
 ### Install
 ```sh
-curl https://raw.githubusercontent.com/zicstardust/ffmpeg-spotify/main/install.sh > /tmp/spotifyFFMPEG.sh; bash /tmp/spotifyFFMPEG.sh
+curl https://raw.githubusercontent.com/zicstardust/ffmpeg-spotify/main/install.sh > /tmp/spotifyFFMPEG.sh; sudo bash /tmp/spotifyFFMPEG.sh
 ```
 
 ## Usage
-After installing, look for `Spotify (fix FFMPEG)` in your applications menu.
+After installation, Spotify is already fixed.
+Whenever the spotify package updates, it will be necessary to run the command:
+```sh
+spotify-ffmpegfix
+```
 
 ### Uninstall
-Right click on application icon: "Uninstall"
+```sh
+spotify-ffmpegfix --uninstall
+```

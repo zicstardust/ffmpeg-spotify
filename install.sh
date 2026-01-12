@@ -1,35 +1,47 @@
 #!/usr/bin/env bash
 
+option=$1
 current_dir=$(pwd)
 
-mkdir -p ${HOME}/.local/share/applications
-mkdir -p ${HOME}/.local/share/spotifyffmpeg
+#Check root
+if [ "$(whoami)" != "root" ]; then
+    echo "Please, run as root"
+    exit 2
+fi
 
+if [ $"$option" == "--uninstall" ]; then
+    rm -Rf /usr/share/spotifyffmpeg
+    rm -f /usr/local/bin/spotify-ffmpegfix
+    echo "Spotify Fix FFMPEG uninstalled!"
+    exit 0
+fi
 
-cd ${HOME}/.local/share/spotifyffmpeg
+mkdir -p /usr/local/bin
+curl https://raw.githubusercontent.com/zicstardust/ffmpeg-spotify/main/install.sh > /usr/local/bin/spotify-ffmpegfix
+chmod +x /usr/local/bin/spotify-ffmpegfix
+
+rm -Rf /usr/share/spotifyffmpeg
+mkdir -p /usr/share/spotifyffmpeg
+cd /usr/share/spotifyffmpeg
 curl -fSL "https://github.com/zicstardust/ffmpeg-spotify/releases/download/1.0/spotify_ffmpeg_libs_linux_x86_64.tar.gz" -o spotify_ffmpeg_libs_linux_x86_64.tar.gz &> /dev/null
 tar -xf spotify_ffmpeg_libs_linux_x86_64.tar.gz &> /dev/null
 rm -f spotify_ffmpeg_libs_linux_x86_64.tar.gz
 chmod -R +x *
 
-cat > ${HOME}/.local/share/applications/spotify-ffmpeg.desktop <<DESKTOP
+cat > /usr/share/applications/spotify.desktop <<DESKTOP
 [Desktop Entry]
 Type=Application
-Name=Spotify (fix FFMPEG)
+Name=Spotify
 GenericName=Music Player
-Comment=Spotify streaming music client fix FFMPEG
+Comment=Spotify streaming music client
 Icon=spotify-client
-Exec=LD_LIBRARY_PATH="${HOME}/.local/share/spotifyffmpeg\${LD_LIBRARY_PATH:+:\$LD_LIBRARY_PATH}" spotify %U
+Exec=LD_LIBRARY_PATH="/usr/share/spotifyffmpeg\${LD_LIBRARY_PATH:+:\$LD_LIBRARY_PATH}" spotify %U
 Terminal=false
 MimeType=x-scheme-handler/spotify;
 Categories=Audio;Music;Player;AudioVideo;
 StartupWMClass=spotify
-Actions=Uninstall;
-[Desktop Action Uninstall]
-Name=Uninstall
-Exec=rm -Rf "${HOME}/.local/share/spotifyffmpeg" && rm -f "${HOME}/.local/share/applications/spotify-ffmpeg.desktop"
 DESKTOP
 
 cd $current_dir
 
-echo "Spotify (fix FFMPEG) installed!"
+echo "Spotify Fix FFMPEG installed!"
