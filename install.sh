@@ -35,7 +35,7 @@ chmod -R +x *
 rm -f /usr/bin/spotify
 cat > /usr/bin/spotify <<"EXEC"
 #!/usr/bin/bash
-export LD_LIBRARY_PATH="/usr/share/spotifyffmpeg${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH="/usr/share/spotifyffmpeg${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 exec /usr/share/spotify/spotify "$@"
 EXEC
 chmod +x /usr/bin/spotify
