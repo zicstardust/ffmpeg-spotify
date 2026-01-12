@@ -12,6 +12,9 @@ fi
 if [ $"$option" == "--uninstall" ]; then
     rm -Rf /usr/share/spotifyffmpeg
     rm -f /usr/local/bin/spotify-ffmpegfix
+    rm -f /usr/bin/spotify
+    ln -s /usr/share/spotify/spotify /usr/bin/spotify
+    chmod +x /usr/bin/spotify
     echo "Spotify Fix FFMPEG uninstalled!"
     exit 0
 fi
@@ -28,19 +31,14 @@ tar -xf spotify_ffmpeg_libs_linux_x86_64.tar.gz &> /dev/null
 rm -f spotify_ffmpeg_libs_linux_x86_64.tar.gz
 chmod -R +x *
 
-cat > /usr/share/applications/spotify.desktop <<DESKTOP
-[Desktop Entry]
-Type=Application
-Name=Spotify
-GenericName=Music Player
-Comment=Spotify streaming music client
-Icon=spotify-client
-Exec=LD_LIBRARY_PATH="/usr/share/spotifyffmpeg\${LD_LIBRARY_PATH:+:\$LD_LIBRARY_PATH}" spotify %U
-Terminal=false
-MimeType=x-scheme-handler/spotify;
-Categories=Audio;Music;Player;AudioVideo;
-StartupWMClass=spotify
-DESKTOP
+
+rm -f /usr/bin/spotify
+cat > /usr/bin/spotify <<"EXEC"
+#!/usr/bin/bash
+export LD_LIBRARY_PATH="/usr/share/spotifyffmpeg${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
+exec /usr/share/spotify/spotify "$@"
+EXEC
+chmod +x /usr/bin/spotify
 
 cd $current_dir
 
